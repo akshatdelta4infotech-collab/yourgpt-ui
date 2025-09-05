@@ -124,6 +124,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -131,4 +132,334 @@
 
 @utility container {
   padding-inline: 1rem;
+}
+
+:root {
+  /* === CTA Variant 1 === */
+  --cta1-bg: #f9fafb;
+  /* light gray background */
+  --cta1-grid-color: rgba(0, 0, 0, 0.05);
+  /* subtle black grid */
+  --cta1-heading: #111827;
+  /* dark text */
+  --cta1-subheading: #374151;
+  /* gray text */
+  --cta1-button-bg: #84cc16;
+  /* lime-400 */
+  --cta1-button-bg-hover: #65a30d;
+  /* lime-500 */
+  --cta1-button-text: #000000;
+  /* black */
+
+  /* === CTA Variant 2 === */
+  --cta2-bg-gradient: linear-gradient(to bottom right, #eef2ff, #ede9fe, #ffffff);
+  --cta2-grid-color: rgba(0, 0, 0, 0.05);
+  --cta2-heading: #111827;
+  --cta2-subheading: #374151;
+  --cta2-button-dark-bg: #1f2937;
+  /* gray-800 */
+  --cta2-button-dark-bg-hover: #374151;
+  /* gray-700 */
+  --cta2-button-dark-text: #ffffff;
+  --cta2-button-light-bg: #ffffff;
+  --cta2-button-light-bg-hover: #f3f4f6;
+  /* gray-100 */
+  --cta2-button-light-text: #000000;
+}
+
+.dark {
+  /* === CTA Variant 1 (dark mode) === */
+  --cta1-bg: transparent;
+  --cta1-grid-color: rgba(255, 255, 255, 0.05);
+  --cta1-heading: #ffffff;
+  --cta1-subheading: #d1d5db;
+  /* gray-300 */
+  --cta1-button-bg: #84cc16;
+  /* lime-400 */
+  --cta1-button-bg-hover: #65a30d;
+  /* lime-500 */
+  --cta1-button-text: #000000;
+
+  /* === CTA Variant 2 (dark mode) === */
+  --cta2-bg-gradient: linear-gradient(to bottom right, #312e81, #581c87, #000000);
+  --cta2-grid-color: rgba(255, 255, 255, 0.1);
+  --cta2-heading: #ffffff;
+  --cta2-subheading: #d1d5db;
+  --cta2-button-dark-bg: #1f2937;
+  --cta2-button-dark-bg-hover: #374151;
+  --cta2-button-dark-text: #ffffff;
+  --cta2-button-light-bg: #ffffff;
+  --cta2-button-light-bg-hover: #f3f4f6;
+  --cta2-button-light-text: #000000;
+}
+
+
+
+:root {
+  /* === Landing Page one Colors (Light Theme) === */
+
+  /* Background gradients */
+  --lp-bg-gradient: linear-gradient(to bottom, #f3e8ff, #eff6ff);
+  /* purple-50 → blue-50 */
+  --lp-section-gradient: linear-gradient(to bottom, #eff6ff, rgba(191, 219, 254, 0.4), #eff6ff);
+
+  /* Text colors */
+  --lp-heading: #111827;
+  /* gray-900 */
+  --lp-heading-accent: #2563eb;
+  /* blue-600 */
+  --lp-subheading: #4b5563;
+  /* gray-600 */
+  --lp-banner-text: #1e40af;
+  /* blue-800 */
+  --lp-banner-bg: #dbeafe;
+  /* blue-100 */
+  --lp-divider: #e5e7eb;
+  /* gray-200 */
+  --lp-trust-label: #4b5563;
+  /* gray-600 */
+
+  /* Trust indicators */
+  --lp-icon-primary: #000000;
+  --lp-icon-secondary: #4b5563;
+
+  /* CTA buttons */
+  --lp-btn-primary-bg: #2563eb;
+  /* blue-600 */
+  --lp-btn-primary-hover: #1d4ed8;
+  /* blue-700 */
+  --lp-btn-primary-text: #ffffff;
+
+  /* Decorative lines */
+  --lp-line: rgba(59, 130, 246, 0.2);
+  /* blue-500/20 */
+  --lp-dot: #3b82f6;
+  /* blue-500 */
+
+  /* Bottom banner */
+  --lp-bottom-banner-bg: #ffffff;
+  --lp-bottom-banner-border: #e5e7eb;
+  --lp-bottom-banner-text: #374151;
+  --lp-bottom-banner-hover: #f9fafb;
+}
+
+.dark {
+  /* === Landing Page one Colors (Dark Theme) === */
+
+  /* Background gradients */
+  --lp-bg-gradient: linear-gradient(to bottom, #1e1b4b, oklch(0.141 0.005 285.823));
+  /* indigo-950 → near-black */
+  --lp-section-gradient: linear-gradient(to bottom, #1e293b, rgba(30, 41, 59, 0.6), oklch(0.141 0.005 285.823));
+
+  /* Text colors */
+  --lp-heading: #f9fafb;
+  /* gray-50 */
+  --lp-heading-accent: #60a5fa;
+  /* blue-400 */
+  --lp-subheading: #9ca3af;
+  /* gray-400 */
+  --lp-banner-text: #93c5fd;
+  /* blue-300 */
+  --lp-banner-bg: rgba(37, 99, 235, 0.2);
+  /* translucent blue */
+  --lp-divider: #374151;
+  /* gray-700 */
+  --lp-trust-label: #d1d5db;
+  /* gray-300 */
+
+  /* Trust indicators */
+  --lp-icon-primary: #f9fafb;
+  --lp-icon-secondary: #9ca3af;
+
+  /* CTA buttons */
+  --lp-btn-primary-bg: #2563eb;
+  /* blue-600 */
+  --lp-btn-primary-hover: #1d4ed8;
+  /* blue-700 */
+  --lp-btn-primary-text: #ffffff;
+
+  /* Decorative lines */
+  --lp-line: rgba(96, 165, 250, 0.3);
+  /* blue-400/30 */
+  --lp-dot: #60a5fa;
+  /* blue-400 */
+
+  /* Bottom banner */
+  --lp-bottom-banner-bg: #1e293b;
+  --lp-bottom-banner-border: #374151;
+  --lp-bottom-banner-text: #e5e7eb;
+  --lp-bottom-banner-hover: #334155;
+}
+
+
+
+:root {
+  /* === Landing Page Two (Light Theme) === */
+  --lp2-bg-main: #ffffff;
+  --lp2-bg-section: #f9fafb;
+  /* gray-50 */
+  --lp2-text-heading: #111827;
+  /* gray-900 */
+  --lp2-text-subheading: #4b5563;
+  /* gray-600 */
+  --lp2-text-muted: #6b7280;
+  /* gray-500 */
+  --lp2-text-banner: #2563eb;
+  /* blue-600 */
+  --lp2-icon-banner: #2563eb;
+  /* blue-600 */
+  --lp2-input-border: #d1d5db;
+  /* gray-300 */
+  --lp2-input-bg: #ffffff;
+  --lp2-input-text: #374151;
+  /* gray-700 */
+  --lp2-cta-bg: #2563eb;
+  /* blue-600 */
+  --lp2-cta-bg-hover: #1d4ed8;
+  /* blue-700 */
+  --lp2-cta-text: #ffffff;
+  --lp2-badge-bg: #22c55e;
+  /* green-500 */
+  --lp2-badge-text: #ffffff;
+  --lp2-footer-text: #4b5563;
+  /* gray-600 */
+  --lp2-overlay-circle: #000000;
+  --lp2-overlay-play-bg: #18181b;
+  --lp2-overlay-play-icon: #fff;
+  --lp2-overlay-text: #6b7280;
+  /* gray-500 */
+}
+
+.dark {
+  /* === Landing Page Two (Dark Theme) === */
+  --lp2-bg-main: oklch(0.141 0.005 285.823);
+  /* near-black: rgb(9,9,11) */
+  --lp2-bg-section: #18181b;
+  /* zinc-900 for section contrast */
+  --lp2-text-heading: #f9fafb;
+  /* gray-50 */
+  --lp2-text-subheading: #d1d5db;
+  /* gray-300 */
+  --lp2-text-muted: #9ca3af;
+  /* gray-400 */
+  --lp2-text-banner: #60a5fa;
+  /* blue-400 */
+  --lp2-icon-banner: #60a5fa;
+  /* blue-400 */
+  --lp2-input-border: #3f3f46;
+  /* zinc-700 */
+  --lp2-input-bg: #27272a;
+  /* zinc-800 */
+  --lp2-input-text: #f1f5f9;
+  /* gray-100 */
+  --lp2-cta-bg: #3b82f6;
+  /* blue-500 */
+  --lp2-cta-bg-hover: #2563eb;
+  /* blue-600 */
+  --lp2-cta-text: #ffffff;
+  --lp2-badge-bg: #22c55e;
+  /* green-500 */
+  --lp2-badge-text: #ffffff;
+  --lp2-footer-text: #9ca3af;
+  /* gray-400 */
+  --lp2-overlay-circle: #27272a;
+  --lp2-overlay-play-bg: #18181b;
+  --lp2-overlay-play-icon: #fff;
+  /* zinc-800 */
+  --lp2-overlay-text: #9ca3af;
+  /* gray-400 */
+}
+
+
+/* landing page three items */
+:root {
+  /* Typography */
+  --lp-text-primary: #111827;
+  /* dark gray / heading */
+  --lp-text-secondary: #4b5563;
+  /* body text gray */
+  --lp-text-muted: #6b7280;
+
+  /* Backgrounds */
+  --lp-bg-base: #ffffff;
+  --lp-bg-subtle: #f9fafb;
+  --lp-bg-card: #ffffff;
+
+  /* Gradient overlay (light) */
+  --lp-gradient-overlay: radial-gradient(ellipse 900px 500px at center 25%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.9) 25%,
+      rgba(255, 255, 255, 0.7) 45%,
+      rgba(255, 255, 255, 0.2) 70%,
+      transparent 100%),
+    linear-gradient(to bottom,
+      transparent 0%,
+      transparent 75%,
+      rgba(255, 255, 255, 0.6) 90%,
+      rgba(255, 255, 255, 0.9) 100%);
+
+  /* Accent */
+  --lp-accent: #000000;
+  --lp-accent-contrast: #ffffff;
+
+  /* Grid pattern line */
+  --lp-grid-line: rgba(156, 163, 175, 0.3);
+  /* gray-400 30% */
+
+  /* Logo filter for visibility */
+  --lp-logo-filter: none;
+
+  /* Video overlay gradient */
+  --lp-video-overlay: linear-gradient(to bottom,
+      transparent 0%,
+      transparent 50%,
+      color-mix(in srgb, var(--lp-bg-subtle) 50%, transparent) 70%,
+      color-mix(in srgb, var(--lp-bg-subtle) 80%, transparent) 85%,
+      var(--lp-bg-subtle) 100%);
+}
+
+.dark {
+  /* Typography */
+  --lp-text-primary: #f9fafb;
+  --lp-text-secondary: #d1d5db;
+  --lp-text-muted: #9ca3af;
+
+  /* Backgrounds */
+  --lp-bg-base: oklch(0.141 0.005 285.823);
+  /* updated near-black background */
+  --lp-bg-subtle: oklch(0.18 0.01 285.823);
+  /* slightly lighter for contrast */
+  --lp-bg-card: oklch(0.2 0.02 285.823);
+  /* card surfaces with better contrast */
+
+  /* Gradient overlay (dark) */
+  --lp-gradient-overlay: radial-gradient(ellipse 900px 500px at center 25%,
+      rgba(22, 23, 42, 0.95) 0%,
+      rgba(22, 23, 42, 0.9) 25%,
+      rgba(22, 23, 42, 0.7) 45%,
+      rgba(22, 23, 42, 0.2) 70%,
+      transparent 100%),
+    linear-gradient(to bottom,
+      transparent 0%,
+      transparent 75%,
+      rgba(22, 23, 42, 0.6) 90%,
+      rgba(22, 23, 42, 0.9) 100%);
+
+  /* Accent */
+  --lp-accent: #22d3ee;
+  --lp-accent-contrast: oklch(0.141 0.005 285.823);
+
+  /* Grid pattern line */
+  --lp-grid-line: rgba(148, 163, 184, 0.25);
+
+  /* Logo filter for visibility in dark mode */
+  --lp-logo-filter: invert(1) brightness(0.9) contrast(1.1);
+
+  /* Video overlay gradient */
+  --lp-video-overlay: linear-gradient(to bottom,
+      transparent 0%,
+      transparent 50%,
+      color-mix(in srgb, var(--lp-bg-subtle) 50%, transparent) 70%,
+      color-mix(in srgb, var(--lp-bg-subtle) 80%, transparent) 85%,
+      var(--lp-bg-subtle) 100%);
 }
