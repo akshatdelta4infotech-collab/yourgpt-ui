@@ -1,6 +1,13 @@
 "use client";
 
-import { Eye, Code2, Maximize } from "lucide-react";
+import {
+  Eye,
+  Code2,
+  Maximize,
+  Smartphone,
+  Tablet,
+  Monitor,
+} from "lucide-react";
 import { useState } from "react";
 
 interface PreviewCodeHeaderProps {
@@ -8,6 +15,7 @@ interface PreviewCodeHeaderProps {
   setActiveTab: (tab: "preview" | "code") => void;
   previewComponent?: string; // Add this to identify which component to maximize
   hideTopBorder?: boolean; // Add this to conditionally hide top border
+  onViewportChange?: (viewport: "mobile" | "tablet" | "desktop") => void; // Add viewport change handler
 }
 
 const PreviewCodeHeader = ({
@@ -15,8 +23,12 @@ const PreviewCodeHeader = ({
   setActiveTab,
   previewComponent,
   hideTopBorder = false,
+  onViewportChange,
 }: PreviewCodeHeaderProps) => {
   const [isMaximizing, setIsMaximizing] = useState(false);
+  const [activeViewport, setActiveViewport] = useState<
+    "mobile" | "tablet" | "desktop"
+  >("desktop");
 
   const handleMaximize = () => {
     if (previewComponent) {
@@ -27,6 +39,13 @@ const PreviewCodeHeader = ({
 
       // Reset the maximizing state after a short delay
       setTimeout(() => setIsMaximizing(false), 1000);
+    }
+  };
+
+  const handleViewportChange = (viewport: "mobile" | "tablet" | "desktop") => {
+    setActiveViewport(viewport);
+    if (onViewportChange) {
+      onViewportChange(viewport);
     }
   };
   return (
@@ -57,8 +76,8 @@ const PreviewCodeHeader = ({
 
       {/* Header content */}
       <div className="relative w-full">
-        <div className="flex items-center min-h-[48px] pl-4">
-          <div className="flex items-center absolute left-4">
+        <div className="flex items-center justify-between min-h-[48px] px-4">
+          <div className="flex items-center">
             {/* Preview Button */}
             <button
               onClick={() => setActiveTab("preview")}
@@ -104,6 +123,50 @@ const PreviewCodeHeader = ({
               />
             </button>
           </div>
+
+          {/* Right side - Viewport Controls (only show for preview tab) */}
+          {activeTab === "preview" && (
+            <div className="flex items-center space-x-1">
+              {/* Mobile View Button */}
+              <button
+                onClick={() => handleViewportChange("mobile")}
+                className={`p-2 rounded-md transition-colors duration-200 ${
+                  activeViewport === "mobile"
+                    ? "bg-secondary text-secondary-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+                title="Mobile view"
+              >
+                <Smartphone className="w-4 h-4" />
+              </button>
+
+              {/* Tablet View Button */}
+              <button
+                onClick={() => handleViewportChange("tablet")}
+                className={`p-2 rounded-md transition-colors duration-200 ${
+                  activeViewport === "tablet"
+                    ? "bg-secondary text-secondary-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+                title="Tablet view"
+              >
+                <Tablet className="w-4 h-4" />
+              </button>
+
+              {/* Desktop View Button */}
+              <button
+                onClick={() => handleViewportChange("desktop")}
+                className={`p-2 rounded-md transition-colors duration-200 ${
+                  activeViewport === "desktop"
+                    ? "bg-secondary text-secondary-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                }`}
+                title="Desktop view"
+              >
+                <Monitor className="w-4 h-4" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

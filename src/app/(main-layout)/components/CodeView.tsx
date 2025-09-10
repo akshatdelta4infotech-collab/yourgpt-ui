@@ -73,9 +73,15 @@ export default function CodeView({ code, language = "tsx" }: CodeViewProps) {
         <span className="sm:hidden">{copied ? "✓" : ""}</span>
       </button>
 
+      {/* Mobile scroll hint */}
+      <div className="md:hidden absolute bottom-2 right-2 text-xs text-muted-foreground/60 pointer-events-none z-5 bg-card/80 px-2 py-1 rounded backdrop-blur-sm">
+        Scroll →
+      </div>
+
       {/* Code block */}
       <div
         className="
+    code-view-container
     text-xs sm:text-sm
     h-full
     min-h-[50vh] sm:min-h-[60vh]
@@ -90,20 +96,20 @@ export default function CodeView({ code, language = "tsx" }: CodeViewProps) {
     [&_pre]:rounded-none
     [&_pre]:p-0
     [&_pre]:m-0
-    [&_pre]:whitespace-pre-wrap
-    [&_pre]:word-break-break-word
+    [&_pre]:whitespace-pre
     [&_code]:block
     [&_code]:p-0
     [&_code]:m-0
     [&_code]:bg-transparent
     [&_code]:w-full
-    [&_code]:min-w-0
+    [&_code]:min-w-max
     [&_.line]:flex
     [&_.line]:items-start
     [&_.line]:min-h-[1.25em]
     [&_.line]:leading-relaxed
     [&_.line]:py-0.5
     [&_.line]:w-full
+    [&_.line]:min-w-max
     [&_.line-number]:w-8 sm:[&_.line-number]:w-10
     [&_.line-number]:text-right
     [&_.line-number]:mr-4 sm:[&_.line-number]:mr-6
@@ -114,16 +120,11 @@ export default function CodeView({ code, language = "tsx" }: CodeViewProps) {
     [&_.line-number]:flex-shrink-0
     [&_.line-number]:leading-relaxed
     [&_.line-number]:align-top
-    [&_.line-number]:sticky
-    [&_.line-number]:left-0
-    [&_.line-number]:bg-card
-    [&_.line-number]:z-10
     [&_.line-content]:flex-1
-    [&_.line-content]:min-w-0
+    [&_.line-content]:min-w-max
     [&_.line-content]:leading-relaxed
-    [&_.line-content]:whitespace-pre-wrap
-    [&_.line-content]:word-break-break-word
-    [&_.line-content]:overflow-wrap-anywhere
+    [&_.line-content]:whitespace-pre
+    [&_.line-content]:overflow-visible
   "
         dangerouslySetInnerHTML={{ __html: html }}
       />
