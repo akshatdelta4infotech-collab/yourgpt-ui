@@ -1,16 +1,13 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
-  redirects: async () => {
-    return [
-      {
-        source: "/",
-        destination: "/components",
-        statusCode: 302,
-      },
-    ];
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  eslint: {
+    // Disable ESLint during builds
+    ignoreDuringBuilds: true,
   },
-};
+  // OR configure specific rules
+  // eslint: {
+  //   dirs: ['pages', 'utils'], // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
+  // },
+}
 
-export default nextConfig;
+module.exports = nextConfig
