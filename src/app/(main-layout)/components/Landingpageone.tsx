@@ -1,17 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Star, Shield, Clock, ChevronRight } from "lucide-react";
 import PreviewCodeHeader from "./PreviewCodeHeader";
 import CodeView from "./CodeView";
-import {
-  ResizablePanelGroup,
-  ResizablePanel,
-  ResizableHandle,
-} from "@/components/ui/resizable";
 
-export default function Landingpageone() {
+// Props type
+type LandingpageoneProps = {
+  hideHeader?: boolean;
+};
+
+export default function Landingpageone({
+  hideHeader = false,
+}: LandingpageoneProps) {
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [viewport, setViewport] = useState<"mobile" | "tablet" | "desktop">(
     "desktop"
@@ -470,465 +472,450 @@ export default function HeroSection() {
 `;
 
   return (
-    <div className="w-full">
-      <PreviewCodeHeader
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        previewComponent="landingpageone"
-        onViewportChange={handleViewportChange}
-      />
+    <div className="w-full ">
+      {/* ✅ Conditionally hide header */}
+      {!hideHeader && (
+        <PreviewCodeHeader
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          previewComponent="landing-one"
+          hideTopBorder={false}
+          onViewportChange={handleViewportChange}
+        />
+      )}
 
       <div
-        className={`${getContainerWidth()} ${getContainerAlignment()} min-h-[60vh]`}
+        className={`${getContainerWidth()} ${getContainerAlignment()} min-h-[60vh] overflow-y-auto`}
       >
-        {activeTab === "preview" ? (
-          <ResizablePanelGroup
-            direction="horizontal"
-            className="w-full  mx-auto border  shadow-lg"
-          >
-            {/* CTA content inside resizable panel */}
-            <ResizablePanel defaultSize={100} minSize={30}>
-              <div className="min-h-[60vh]">
-                <div
-                  className="w-full min-h-[60vh]"
-                  style={{ background: "var(--lp-bg-gradient)" }}
-                >
-                  {/* Hero Content */}
+        {hideHeader || activeTab === "preview" ? (
+          <div className="min-h-[60vh] ">
+            <div
+              className="w-full min-h-[60vh] "
+              style={{ background: "var(--lp-bg-gradient)" }}
+            >
+              {/* Hero Content */}
+              <div
+                className="w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12 lg:py-16"
+                style={{ background: "var(--lp-section-gradient)" }}
+              >
+                {/* Referral Banner */}
+                <div className="flex justify-center mb-8 sm:mb-12 md:mb-16">
                   <div
-                    className="w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 md:py-12 lg:py-16"
-                    style={{ background: "var(--lp-section-gradient)" }}
+                    className={
+                      (viewport === "mobile"
+                        ? "px-3 py-1.5 text-[10px]"
+                        : viewport === "tablet"
+                        ? "px-5 py-2 text-xs"
+                        : "px-6 py-3 text-sm sm:text-base") +
+                      " rounded-full text-center"
+                    }
+                    style={{
+                      backgroundColor: "var(--lp-banner-bg)",
+                      color: "var(--lp-banner-text)",
+                    }}
                   >
-                    {/* Referral Banner */}
-                    <div className="flex justify-center mb-8 sm:mb-12 md:mb-16">
-                      <div
-                        className={
-                          (viewport === "mobile"
-                            ? "px-3 py-1.5 text-[10px]"
-                            : viewport === "tablet"
-                            ? "px-5 py-2 text-xs"
-                            : "px-6 py-3 text-sm sm:text-base") +
-                          " rounded-full text-center"
-                        }
-                        style={{
-                          backgroundColor: "var(--lp-banner-bg)",
-                          color: "var(--lp-banner-text)",
-                        }}
-                      >
-                        Our online referral program is now available. Earn
-                        Rewards
+                    Our online referral program is now available. Earn Rewards
+                  </div>
+                </div>
+
+                {/* Main Heading */}
+                <div className="text-center mb-6 sm:mb-8 md:mb-12">
+                  {/* First Line */}
+                  <h1
+                    className={
+                      (viewport === "mobile"
+                        ? "text-2xl mb-2 px-2"
+                        : viewport === "tablet"
+                        ? "text-4xl mb-3 px-3"
+                        : "text-5xl sm:text-6xl lg:text-7xl mb-4 px-4") +
+                      " font-bold leading-snug sm:leading-tight"
+                    }
+                    style={{ color: "var(--lp-heading)" }}
+                  >
+                    Data Extraction
+                  </h1>
+
+                  {/* Second Line */}
+                  <h1
+                    className={
+                      (viewport === "mobile"
+                        ? "text-2xl mb-3 px-2"
+                        : viewport === "tablet"
+                        ? "text-4xl mb-4 px-3"
+                        : "text-5xl sm:text-6xl lg:text-7xl mb-5 px-4") +
+                      " font-bold leading-snug sm:leading-tight"
+                    }
+                  >
+                    <span style={{ color: "var(--lp-heading-accent)" }}>
+                      Excellence
+                    </span>{" "}
+                    <span style={{ color: "var(--lp-heading)" }}>at Scale</span>
+                  </h1>
+
+                  {/* Subheading */}
+                  <p
+                    className={
+                      (viewport === "mobile"
+                        ? "text-sm max-w-xs px-2"
+                        : viewport === "tablet"
+                        ? "text-base max-w-xl px-3"
+                        : "text-lg sm:text-xl max-w-3xl px-4") +
+                      " mx-auto leading-relaxed"
+                    }
+                    style={{ color: "var(--lp-subheading)" }}
+                  >
+                    Gather data efficiently with the industry-leading proxy
+                    network and enjoy limitless web scraping solutions on the
+                    most intense tasks.
+                  </p>
+                </div>
+
+                {/* Trust Indicators */}
+                <div
+                  className={
+                    (viewport === "mobile"
+                      ? "grid grid-cols-2 gap-2 px-3 mb-6"
+                      : viewport === "tablet"
+                      ? "grid grid-cols-4 gap-3 px-4 mb-8"
+                      : "grid grid-cols-4 gap-4 lg:gap-6 xl:gap-8 px-4 sm:px-0 mb-8 sm:mb-12 max-w-4xl") +
+                    " justify-items-center mx-auto"
+                  }
+                >
+                  {/* Trustpilot */}
+                  <div className="flex items-center space-x-1 sm:space-x-2">
+                    <Star
+                      className="w-4 h-4 sm:w-5 sm:h-5 fill-current"
+                      style={{ color: "var(--lp-icon-primary)" }}
+                    />
+                    <span
+                      className="font-medium text-xs sm:text-sm"
+                      style={{ color: "var(--lp-trust-label)" }}
+                    >
+                      Trustpilot
+                    </span>
+                  </div>
+
+                  {/* 4.5 Rating */}
+                  <div className="flex items-center space-x-1 sm:space-x-2">
+                    <Star
+                      className="w-4 h-4 sm:w-5 sm:h-5 fill-current"
+                      style={{ color: "var(--lp-icon-primary)" }}
+                    />
+                    <span
+                      className="font-medium text-xs sm:text-sm"
+                      style={{ color: "var(--lp-trust-label)" }}
+                    >
+                      4.5 rating
+                    </span>
+                  </div>
+
+                  {/* Proxy Pool */}
+                  <div className="flex items-center space-x-1 sm:space-x-2">
+                    <Shield
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                      style={{ color: "var(--lp-icon-secondary)" }}
+                    />
+                    <span
+                      className="font-medium text-xs sm:text-sm"
+                      style={{ color: "var(--lp-trust-label)" }}
+                    >
+                      10M+ Proxy Pool
+                    </span>
+                  </div>
+
+                  {/* Free Trial */}
+                  <div className="flex items-center space-x-1 sm:space-x-2">
+                    <Clock
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                      style={{ color: "var(--lp-icon-secondary)" }}
+                    />
+                    <span
+                      className="font-medium text-xs sm:text-sm"
+                      style={{ color: "var(--lp-trust-label)" }}
+                    >
+                      30 Day Free Trial
+                    </span>
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <div className="flex justify-center mb-12 sm:mb-16 px-4 sm:px-0">
+                  <Button
+                    className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold w-full sm:w-auto max-w-xs sm:max-w-none"
+                    style={{
+                      backgroundColor: "var(--lp-btn-primary-bg)",
+                      color: "var(--lp-btn-primary-text)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor =
+                        "var(--lp-btn-primary-hover)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor =
+                        "var(--lp-btn-primary-bg)";
+                    }}
+                  >
+                    Get Started
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
+                  </Button>
+                </div>
+
+                {/* Feature Icons (responsive) */}
+                <div className="relative mb-10 sm:mb-16 lg:mb-24">
+                  {/* Desktop with decorative lines */}
+                  {viewport === "desktop" && (
+                    <div className="relative mb-16 sm:mb-24 hidden lg:block">
+                      <div className="flex justify-center items-center space-x-4 lg:px-32 xl:px-72">
+                        {/* Left decorative line */}
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center">
+                          <div
+                            className="w-24 sm:w-36 md:w-48 lg:w-64 xl:w-80 h-0.5"
+                            style={{ backgroundColor: "var(--lp-line)" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 rounded-full"
+                            style={{ backgroundColor: "var(--lp-dot)" }}
+                          ></div>
+                        </div>
+
+                        {/* Right decorative line */}
+                        <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
+                          <div
+                            className="w-2 h-2 rounded-full"
+                            style={{ backgroundColor: "var(--lp-dot)" }}
+                          ></div>
+                          <div
+                            className="w-24 sm:w-36 md:w-48 lg:w-64 xl:w-80 h-0.5"
+                            style={{ backgroundColor: "var(--lp-line)" }}
+                          ></div>
+                        </div>
+
+                        {/* Desktop Proxies */}
+                        {[
+                          {
+                            bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-1-icon.a6ef8e72.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                            hoverText: "Residential Proxies",
+                            rotate: "-rotate-6",
+                          },
+                          {
+                            bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-2-icon.ccc056ce.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                            hoverText: "Data Center Proxies",
+                            rotate: "rotate-3",
+                          },
+                          {
+                            bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-3-icon.70a30262.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                            hoverText: "ISP Proxies",
+                            rotate: "-rotate-3",
+                          },
+                          {
+                            bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-4-icon.775307d5.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                            hoverText: "IPv6 Proxies",
+                            rotate: "rotate-6",
+                          },
+                          {
+                            bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-5-icon.580560e0.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                            hoverText: "Mobile Proxies",
+                            rotate: "-rotate-12",
+                          },
+                        ].map(({ bg, hoverText, rotate }, i) => (
+                          <div
+                            key={i}
+                            className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 ${bg} rounded-2xl flex items-center justify-center group relative transition-transform duration-300 ${rotate} group-hover:[transform:rotate(0deg)]`}
+                            style={{
+                              boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                            }}
+                          >
+                            <span className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/80 text-white text-[10px] sm:text-xs md:text-sm px-2 py-1 rounded whitespace-nowrap -bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+                              {hoverText}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     </div>
+                  )}
 
-                    {/* Main Heading */}
-                    <div className="text-center mb-6 sm:mb-8 md:mb-12">
-                      {/* First Line */}
-                      <h1
-                        className={
-                          (viewport === "mobile"
-                            ? "text-2xl mb-2 px-2"
-                            : viewport === "tablet"
-                            ? "text-4xl mb-3 px-3"
-                            : "text-5xl sm:text-6xl lg:text-7xl mb-4 px-4") +
-                          " font-bold leading-snug sm:leading-tight"
-                        }
-                        style={{ color: "var(--lp-heading)" }}
-                      >
-                        Data Extraction
-                      </h1>
-
-                      {/* Second Line */}
-                      <h1
-                        className={
-                          (viewport === "mobile"
-                            ? "text-2xl mb-3 px-2"
-                            : viewport === "tablet"
-                            ? "text-4xl mb-4 px-3"
-                            : "text-5xl sm:text-6xl lg:text-7xl mb-5 px-4") +
-                          " font-bold leading-snug sm:leading-tight"
-                        }
-                      >
-                        <span style={{ color: "var(--lp-heading-accent)" }}>
-                          Excellence
-                        </span>{" "}
-                        <span style={{ color: "var(--lp-heading)" }}>
-                          at Scale
-                        </span>
-                      </h1>
-
-                      {/* Subheading */}
-                      <p
-                        className={
-                          (viewport === "mobile"
-                            ? "text-sm max-w-xs px-2"
-                            : viewport === "tablet"
-                            ? "text-base max-w-xl px-3"
-                            : "text-lg sm:text-xl max-w-3xl px-4") +
-                          " mx-auto leading-relaxed"
-                        }
-                        style={{ color: "var(--lp-subheading)" }}
-                      >
-                        Gather data efficiently with the industry-leading proxy
-                        network and enjoy limitless web scraping solutions on
-                        the most intense tasks.
-                      </p>
-                    </div>
-
-                    {/* Trust Indicators */}
+                  {/* Mobile & Tablet grid (no lines) */}
+                  {(viewport === "mobile" || viewport === "tablet") && (
                     <div
                       className={
                         (viewport === "mobile"
-                          ? "grid grid-cols-2 gap-2 px-3 mb-6"
-                          : viewport === "tablet"
-                          ? "grid grid-cols-4 gap-3 px-4 mb-8"
-                          : "grid grid-cols-4 gap-4 lg:gap-6 xl:gap-8 px-4 sm:px-0 mb-8 sm:mb-12 max-w-4xl") +
-                        " justify-items-center mx-auto"
+                          ? "grid grid-cols-2 gap-3 px-4 mb-10"
+                          : "grid grid-cols-3 sm:grid-cols-4 gap-4 px-6 mb-12") +
+                        " justify-items-center"
                       }
                     >
-                      {/* Trustpilot */}
-                      <div className="flex items-center space-x-1 sm:space-x-2">
-                        <Star
-                          className="w-4 h-4 sm:w-5 sm:h-5 fill-current"
-                          style={{ color: "var(--lp-icon-primary)" }}
-                        />
-                        <span
-                          className="font-medium text-xs sm:text-sm"
-                          style={{ color: "var(--lp-trust-label)" }}
-                        >
-                          Trustpilot
-                        </span>
-                      </div>
-
-                      {/* 4.5 Rating */}
-                      <div className="flex items-center space-x-1 sm:space-x-2">
-                        <Star
-                          className="w-4 h-4 sm:w-5 sm:h-5 fill-current"
-                          style={{ color: "var(--lp-icon-primary)" }}
-                        />
-                        <span
-                          className="font-medium text-xs sm:text-sm"
-                          style={{ color: "var(--lp-trust-label)" }}
-                        >
-                          4.5 rating
-                        </span>
-                      </div>
-
-                      {/* Proxy Pool */}
-                      <div className="flex items-center space-x-1 sm:space-x-2">
-                        <Shield
-                          className="w-4 h-4 sm:w-5 sm:h-5"
-                          style={{ color: "var(--lp-icon-secondary)" }}
-                        />
-                        <span
-                          className="font-medium text-xs sm:text-sm"
-                          style={{ color: "var(--lp-trust-label)" }}
-                        >
-                          10M+ Proxy Pool
-                        </span>
-                      </div>
-
-                      {/* Free Trial */}
-                      <div className="flex items-center space-x-1 sm:space-x-2">
-                        <Clock
-                          className="w-4 h-4 sm:w-5 sm:h-5"
-                          style={{ color: "var(--lp-icon-secondary)" }}
-                        />
-                        <span
-                          className="font-medium text-xs sm:text-sm"
-                          style={{ color: "var(--lp-trust-label)" }}
-                        >
-                          30 Day Free Trial
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* CTA */}
-                    <div className="flex justify-center mb-12 sm:mb-16 px-4 sm:px-0">
-                      <Button
-                        className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-base sm:text-lg font-semibold w-full sm:w-auto max-w-xs sm:max-w-none"
-                        style={{
-                          backgroundColor: "var(--lp-btn-primary-bg)",
-                          color: "var(--lp-btn-primary-text)",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor =
-                            "var(--lp-btn-primary-hover)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor =
-                            "var(--lp-btn-primary-bg)";
-                        }}
-                      >
-                        Get Started
-                        <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
-                      </Button>
-                    </div>
-
-                    {/* Feature Icons (responsive) */}
-                    <div className="relative mb-10 sm:mb-16 lg:mb-24">
-                      {/* Desktop with decorative lines */}
-                      {viewport === "desktop" && (
-                        <div className="relative mb-16 sm:mb-24 hidden lg:block">
-                          <div className="flex justify-center items-center space-x-4 lg:px-32 xl:px-72">
-                            {/* Left decorative line */}
-                            <div className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center">
-                              <div
-                                className="w-24 sm:w-36 md:w-48 lg:w-64 xl:w-80 h-0.5"
-                                style={{ backgroundColor: "var(--lp-line)" }}
-                              ></div>
-                              <div
-                                className="w-2 h-2 rounded-full"
-                                style={{ backgroundColor: "var(--lp-dot)" }}
-                              ></div>
-                            </div>
-
-                            {/* Right decorative line */}
-                            <div className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center">
-                              <div
-                                className="w-2 h-2 rounded-full"
-                                style={{ backgroundColor: "var(--lp-dot)" }}
-                              ></div>
-                              <div
-                                className="w-24 sm:w-36 md:w-48 lg:w-64 xl:w-80 h-0.5"
-                                style={{ backgroundColor: "var(--lp-line)" }}
-                              ></div>
-                            </div>
-
-                            {/* Desktop Proxies */}
-                            {[
-                              {
-                                bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-1-icon.a6ef8e72.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                                hoverText: "Residential Proxies",
-                                rotate: "-rotate-6",
-                              },
-                              {
-                                bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-2-icon.ccc056ce.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                                hoverText: "Data Center Proxies",
-                                rotate: "rotate-3",
-                              },
-                              {
-                                bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-3-icon.70a30262.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                                hoverText: "ISP Proxies",
-                                rotate: "-rotate-3",
-                              },
-                              {
-                                bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-4-icon.775307d5.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                                hoverText: "IPv6 Proxies",
-                                rotate: "rotate-6",
-                              },
-                              {
-                                bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-5-icon.580560e0.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                                hoverText: "Mobile Proxies",
-                                rotate: "-rotate-12",
-                              },
-                            ].map(({ bg, hoverText, rotate }, i) => (
-                              <div
-                                key={i}
-                                className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 ${bg} rounded-2xl flex items-center justify-center group relative transition-transform duration-300 ${rotate} group-hover:[transform:rotate(0deg)]`}
-                                style={{
-                                  boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-                                }}
-                              >
-                                <span className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/80 text-white text-[10px] sm:text-xs md:text-sm px-2 py-1 rounded whitespace-nowrap -bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-                                  {hoverText}
-                                </span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Mobile & Tablet grid (no lines) */}
-                      {(viewport === "mobile" || viewport === "tablet") && (
+                      {[
+                        {
+                          bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-1-icon.a6ef8e72.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                          hoverText: "Residential Proxies",
+                        },
+                        {
+                          bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-2-icon.ccc056ce.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                          hoverText: "Data Center Proxies",
+                        },
+                        {
+                          bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-3-icon.70a30262.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                          hoverText: "ISP Proxies",
+                        },
+                        {
+                          bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-4-icon.775307d5.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                          hoverText: "IPv6 Proxies",
+                        },
+                        {
+                          bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-5-icon.580560e0.svg')] bg-white bg-center bg-no-repeat bg-contain",
+                          hoverText: "Mobile Proxies",
+                        },
+                      ].map(({ bg, hoverText }, i) => (
                         <div
-                          className={
-                            (viewport === "mobile"
-                              ? "grid grid-cols-2 gap-3 px-4 mb-10"
-                              : "grid grid-cols-3 sm:grid-cols-4 gap-4 px-6 mb-12") +
-                            " justify-items-center"
-                          }
-                        >
-                          {[
-                            {
-                              bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-1-icon.a6ef8e72.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                              hoverText: "Residential Proxies",
-                            },
-                            {
-                              bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-2-icon.ccc056ce.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                              hoverText: "Data Center Proxies",
-                            },
-                            {
-                              bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-3-icon.70a30262.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                              hoverText: "ISP Proxies",
-                            },
-                            {
-                              bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-4-icon.775307d5.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                              hoverText: "IPv6 Proxies",
-                            },
-                            {
-                              bg: "bg-[url('https://lightningproxies.net/_next/static/media/product-5-icon.580560e0.svg')] bg-white bg-center bg-no-repeat bg-contain",
-                              hoverText: "Mobile Proxies",
-                            },
-                          ].map(({ bg, hoverText }, i) => (
-                            <div
-                              key={i}
-                              className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center"
+                          key={i}
+                          className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center"
+                          style={{
+                            backgroundImage: `url('${
+                              bg.match(/url\('([^']+)'\)/)?.[1]
+                            }')`,
+                            backgroundColor: "white",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "contain",
+                            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                          }}
+                          title={hoverText}
+                        ></div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Partners */}
+                <div className="w-full overflow-hidden">
+                  <h3
+                    className="font-medium mb-6 sm:mb-8 tracking-wide text-center text-xs sm:text-sm px-4"
+                    style={{ color: "var(--lp-trust-label)" }}
+                  >
+                    TRUSTED BY TOP PARTNERS IN THE INDUSTRY
+                  </h3>
+
+                  <div className="relative w-full">
+                    <div className="overflow-x-auto scrollbar-hide">
+                      <div className="flex items-center py-4 animate-scroll min-w-max">
+                        {[
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/incogniton-logo.cd08b27e.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/multilogin-logo.31e76296.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/undetectable-logo.fb583c6f.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/adspower.f58c3762.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/gologin-logo.5379eaad.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/octobrowser-logo.a9f428ed.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/dolphinanty-logo.b90d60f3.svg",
+                          },
+                          // Duplicate items for continuous scroll effect
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/incogniton-logo.cd08b27e.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/multilogin-logo.31e76296.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/undetectable-logo.fb583c6f.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/adspower.f58c3762.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/gologin-logo.5379eaad.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/octobrowser-logo.a9f428ed.svg",
+                          },
+                          {
+                            img: "https://lightningproxies.net/_next/static/media/dolphinanty-logo.b90d60f3.svg",
+                          },
+                        ].map((partner, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center px-6 sm:px-8 first:pl-20 last:pr-20"
+                          >
+                            <img
+                              src={partner.img}
+                              alt="partner logo"
+                              className="w-24 h-24 sm:w-32 sm:h-32 object-contain -mx-4"
                               style={{
-                                backgroundImage: `url('${
-                                  bg.match(/url\('([^']+)'\)/)?.[1]
-                                }')`,
-                                backgroundColor: "white",
-                                backgroundPosition: "center",
-                                backgroundRepeat: "no-repeat",
-                                backgroundSize: "contain",
-                                boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+                                filter: "var(--lp-logo-filter)",
                               }}
-                              title={hoverText}
+                            />
+                            <div
+                              className="h-6 sm:h-8 w-px ml-6 sm:ml-8"
+                              style={{
+                                backgroundColor: "var(--lp-divider)",
+                              }}
                             ></div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Partners */}
-                    <div className="w-full overflow-hidden">
-                      <h3
-                        className="font-medium mb-6 sm:mb-8 tracking-wide text-center text-xs sm:text-sm px-4"
-                        style={{ color: "var(--lp-trust-label)" }}
-                      >
-                        TRUSTED BY TOP PARTNERS IN THE INDUSTRY
-                      </h3>
-
-                      <div className="relative w-full">
-                        <div className="overflow-x-auto scrollbar-hide">
-                          <div className="flex items-center py-4 animate-scroll min-w-max">
-                            {[
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/incogniton-logo.cd08b27e.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/multilogin-logo.31e76296.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/undetectable-logo.fb583c6f.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/adspower.f58c3762.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/gologin-logo.5379eaad.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/octobrowser-logo.a9f428ed.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/dolphinanty-logo.b90d60f3.svg",
-                              },
-                              // Duplicate items for continuous scroll effect
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/incogniton-logo.cd08b27e.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/multilogin-logo.31e76296.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/undetectable-logo.fb583c6f.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/adspower.f58c3762.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/gologin-logo.5379eaad.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/octobrowser-logo.a9f428ed.svg",
-                              },
-                              {
-                                img: "https://lightningproxies.net/_next/static/media/dolphinanty-logo.b90d60f3.svg",
-                              },
-                            ].map((partner, index) => (
-                              <div
-                                key={index}
-                                className="flex items-center px-6 sm:px-8 first:pl-20 last:pr-20"
-                              >
-                                <img
-                                  src={partner.img}
-                                  alt="partner logo"
-                                  className="w-24 h-24 sm:w-32 sm:h-32 object-contain -mx-4"
-                                  style={{
-                                    filter: "var(--lp-logo-filter)",
-                                  }}
-                                />
-                                <div
-                                  className="h-6 sm:h-8 w-px ml-6 sm:ml-8"
-                                  style={{
-                                    backgroundColor: "var(--lp-divider)",
-                                  }}
-                                ></div>
-                              </div>
-                            ))}
                           </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <style jsx>{`
-                      @keyframes scroll {
-                        0% {
-                          transform: translateX(0);
-                        }
-                        100% {
-                          transform: translateX(-50%);
-                        }
-                      }
-                      .animate-scroll {
-                        animation: scroll 30s linear infinite;
-                      }
-                      .scrollbar-hide::-webkit-scrollbar {
-                        display: none;
-                      }
-                      .scrollbar-hide {
-                        -ms-overflow-style: none;
-                        scrollbar-width: none;
-                      }
-                    `}</style>
-
-                    {/* Bottom Banner */}
-                    <div className="flex justify-center mt-12 sm:mt-16 px-4">
-                      <div
-                        className="rounded-full px-4 sm:px-6 py-2 sm:py-3 cursor-pointer transition-colors text-center text-xs sm:text-sm"
-                        style={{
-                          backgroundColor: "var(--lp-bottom-banner-bg)",
-                          borderColor: "var(--lp-bottom-banner-border)",
-                          color: "var(--lp-bottom-banner-text)",
-                          border: "1px solid",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor =
-                            "var(--lp-bottom-banner-hover)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor =
-                            "var(--lp-bottom-banner-bg)";
-                        }}
-                      >
-                        Learn how Lightning Proxies is transforming the proxy
-                        landscape worldwide
-                        <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 inline ml-1 sm:ml-2" />
+                        ))}
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </ResizablePanel>
 
-            {/* Handle + right filler */}
-            <ResizableHandle withHandle />
-            <ResizablePanel
-              defaultSize={0}
-              minSize={0}
-              className="bg-muted/10"
-            />
-          </ResizablePanelGroup>
+                <style jsx>{`
+                  @keyframes scroll {
+                    0% {
+                      transform: translateX(0);
+                    }
+                    100% {
+                      transform: translateX(-50%);
+                    }
+                  }
+                  .animate-scroll {
+                    animation: scroll 30s linear infinite;
+                  }
+                  .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                  }
+                  .scrollbar-hide {
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                  }
+                `}</style>
+
+                {/* Bottom Banner */}
+                <div className="flex justify-center mt-12 sm:mt-16 px-4">
+                  <div
+                    className="rounded-full px-4 sm:px-6 py-2 sm:py-3 cursor-pointer transition-colors text-center text-xs sm:text-sm"
+                    style={{
+                      backgroundColor: "var(--lp-bottom-banner-bg)",
+                      borderColor: "var(--lp-bottom-banner-border)",
+                      color: "var(--lp-bottom-banner-text)",
+                      border: "1px solid",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor =
+                        "var(--lp-bottom-banner-hover)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor =
+                        "var(--lp-bottom-banner-bg)";
+                    }}
+                  >
+                    Learn how Lightning Proxies is transforming the proxy
+                    landscape worldwide
+                    <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 inline ml-1 sm:ml-2" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="w-full h-full">
             <div className="w-full h-full max-w-none text-left">

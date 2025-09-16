@@ -278,9 +278,9 @@
   }
 }
 
-@utility container {
+/* @utility container {
   padding-inline: 1rem;
-}
+} */
 
 :root {
   /* === CTA Variant 1 === */
