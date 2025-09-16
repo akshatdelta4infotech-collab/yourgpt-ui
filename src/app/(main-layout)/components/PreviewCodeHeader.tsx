@@ -13,9 +13,9 @@ import { useState } from "react";
 interface PreviewCodeHeaderProps {
   activeTab: "preview" | "code";
   setActiveTab: (tab: "preview" | "code") => void;
-  previewComponent?: string; // Add this to identify which component to maximize
-  hideTopBorder?: boolean; // Add this to conditionally hide top border
-  onViewportChange?: (viewport: "mobile" | "tablet" | "desktop") => void; // Add viewport change handler
+  previewComponent?: string; // The component ID (e.g., "cta-default", "landing-one")
+  hideTopBorder?: boolean;
+  onViewportChange?: (viewport: "mobile" | "tablet" | "desktop") => void;
 }
 
 const PreviewCodeHeader = ({
@@ -30,14 +30,34 @@ const PreviewCodeHeader = ({
     "mobile" | "tablet" | "desktop"
   >("desktop");
 
+  const mapping: Record<string, string> = {
+    // CTA mappings
+    "ctasections-default": "cta-default",
+    "ctasections-email": "cta-email",
+    "ctasections-variant": "cta-variant",
+    "ctasections-variant2": "cta-variant2",
+    "ctasections-cta": "cta-variant",
+    "ctasections-cta2": "cta-variant2",
+
+    // Landing mappings
+    landingpageone: "landing-one",
+    landingpagetwo: "landing-two",
+    landingpagethree: "landing-three",
+  };
+
   const handleMaximize = () => {
     if (previewComponent) {
       setIsMaximizing(true);
-      // Open the specific preview component in a new tab
-      const url = `/preview/${previewComponent}`;
-      window.open(url, "_blank", "noopener,noreferrer");
 
-      // Reset the maximizing state after a short delay
+      // Apply the mapping to convert generated ID to preview config ID
+      const mappedId = mapping[previewComponent] || previewComponent;
+      const url = `/preview?id=${mappedId}&clean=true`; // ✅ always open clean view
+
+      console.log("Original component ID:", previewComponent);
+      console.log("Mapped ID:", mappedId);
+      console.log("Opening URL:", url);
+
+      window.open(url, "_blank", "noopener,noreferrer");
       setTimeout(() => setIsMaximizing(false), 1000);
     }
   };
@@ -48,6 +68,7 @@ const PreviewCodeHeader = ({
       onViewportChange(viewport);
     }
   };
+
   return (
     <header className="relative w-full">
       {/* Full-width horizontal dotted lines */}
@@ -84,7 +105,7 @@ const PreviewCodeHeader = ({
               className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md ${
                 activeTab === "preview"
                   ? "bg-secondary text-secondary-foreground"
-                  : "text-muted-foreground"
+                  : "text-muted-foreground hover:text-foreground cursor-pointer"
               }`}
             >
               <Eye className="w-4 h-4" />
@@ -97,17 +118,17 @@ const PreviewCodeHeader = ({
               className={`flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md ${
                 activeTab === "code"
                   ? "bg-secondary text-secondary-foreground"
-                  : "text-muted-foreground"
+                  : "text-muted-foreground hover:text-foreground cursor-pointer"
               }`}
             >
-              <Code2 className="w-4 h-4" />
+              <Code2 className="w-4 h-4 hover:bg-muted " />
               <span>Code</span>
             </button>
 
             {/* Divider */}
             <span className="w-px h-6 border-l border-dotted border-border mx-2"></span>
 
-            {/* Zoom */}
+            {/* Maximize Button */}
             <button
               onClick={handleMaximize}
               disabled={isMaximizing}
@@ -133,7 +154,7 @@ const PreviewCodeHeader = ({
                 className={`p-2 rounded-md transition-colors duration-200 ${
                   activeViewport === "mobile"
                     ? "bg-secondary text-secondary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer"
                 }`}
                 title="Mobile view"
               >
@@ -146,7 +167,7 @@ const PreviewCodeHeader = ({
                 className={`p-2 rounded-md transition-colors duration-200 ${
                   activeViewport === "tablet"
                     ? "bg-secondary text-secondary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer"
                 }`}
                 title="Tablet view"
               >
@@ -159,7 +180,7 @@ const PreviewCodeHeader = ({
                 className={`p-2 rounded-md transition-colors duration-200 ${
                   activeViewport === "desktop"
                     ? "bg-secondary text-secondary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground cursor-pointer"
                 }`}
                 title="Desktop view"
               >
