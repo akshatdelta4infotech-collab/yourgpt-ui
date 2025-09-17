@@ -356,17 +356,6 @@ export default function Landingpagetwo() {
 
   return (
     <div className="w-full">
-      {/* ✅ Conditionally hide header */}
-      {!hideHeader && (
-        <PreviewCodeHeader
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          previewComponent="landing-two"
-          hideTopBorder={false}
-          onViewportChange={handleViewportChange}
-        />
-      )}
-
       <div className="w-full">
         {hideHeader || activeTab === "preview" ? (
           <div className={`${getContainerWidth()} ${getContainerAlignment()}`}>

@@ -27,8 +27,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion, AnimatePresence } from "framer-motion";
 import { features } from "@/utils/features";
-
-import PreviewCodeHeader from "./PreviewCodeHeader";
 import CodeView from "./CodeView";
 
 // Props type
@@ -44,13 +42,6 @@ export default function InstaLandingpage({
   const [viewport, setViewport] = useState<"mobile" | "tablet" | "desktop">(
     "desktop"
   );
-
-  // Handle viewport changes
-  const handleViewportChange = (
-    newViewport: "mobile" | "tablet" | "desktop"
-  ) => {
-    setViewport(newViewport);
-  };
 
   // Get container width based on viewport
   const getContainerWidth = () => {
@@ -451,15 +442,7 @@ export default function InstaLandingpage({
   return (
     <div>
       {/* ✅ Conditionally show header */}
-      {!hideHeader && (
-        <PreviewCodeHeader
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          previewComponent="InstaLandingpage"
-          hideTopBorder={false}
-          onViewportChange={handleViewportChange}
-        />
-      )}
+
       {activeTab === "preview" ? (
         <div
           className={` ${getContainerWidth()} ${getContainerAlignment()} min-h-screen relative overflow-hidden mt-10 `}
@@ -579,15 +562,7 @@ export default function InstaLandingpage({
               </div>
 
               {/* Main Heading */}
-              <h1
-                className={`font-black mb-4 md:mb-6 leading-tight ${
-                  viewport === "mobile"
-                    ? "text-3xl"
-                    : viewport === "tablet"
-                    ? "text-5xl"
-                    : "text-7xl"
-                }`}
-              >
+              <h1 className="font-black mb-4 md:mb-6 leading-tight text-3xl sm:text-4xl md:text-5xl lg:text-7xl">
                 <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
                   Automate Your
                 </span>
@@ -600,16 +575,11 @@ export default function InstaLandingpage({
                   with AI
                 </span>
               </h1>
-
               {/* Subheading */}
               <p
-                className={`text-gray-300 mx-auto leading-relaxed mb-8 md:mb-12 ${
-                  viewport === "mobile"
-                    ? "text-base max-w-xs"
-                    : viewport === "tablet"
-                    ? "text-lg max-w-xl"
-                    : "text-2xl max-w-3xl"
-                }`}
+                className="text-gray-300 mx-auto leading-relaxed mb-8 md:mb-12 
+              text-base sm:text-lg md:text-xl lg:text-2xl 
+              max-w-xs sm:max-w-xl md:max-w-2xl lg:max-w-3xl"
               >
                 Transform your Instagram DMs into a powerful sales machine. Our
                 AI chatbot engages customers
@@ -623,33 +593,27 @@ export default function InstaLandingpage({
               </p>
 
               {/* Buttons */}
-              <div
-                className={`flex items-center justify-center gap-4 md:gap-6 mb-12 md:mb-16 ${
-                  viewport === "mobile" ? "flex-col" : "flex-row"
-                }`}
-              >
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-12 md:mb-16">
                 <Button
                   size="lg"
-                  className="inline-flex items-center justify-center bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold px-6 md:px-8 py-3 md:py-5 text-base md:text-lg rounded-xl shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 transform hover:scale-105 border-0"
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-pink-500 to-purple-600 
+               hover:from-pink-600 hover:to-purple-700 text-white font-bold 
+               px-6 md:px-8 py-3 md:py-5 text-base md:text-lg rounded-xl 
+               shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 transform hover:scale-105 border-0"
                 >
-                  <Zap
-                    className={`${
-                      viewport === "mobile" ? "w-4 h-4 mr-2" : "w-5 h-5 mr-2"
-                    }`}
-                  />
+                  <Zap className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                   Get Started Now
                 </Button>
 
                 <Button
                   variant="outline"
                   size="lg"
-                  className="inline-flex items-center justify-center border-2 border-gray-600 text-white hover:bg-white hover:text-gray-900 font-bold px-6 md:px-8 py-3 md:py-5 text-base md:text-lg rounded-xl backdrop-blur-sm transition-all duration-300 transform hover:scale-105 bg-white/5"
+                  className="inline-flex items-center justify-center border-2 border-gray-600 text-white 
+               hover:bg-white hover:text-gray-900 font-bold 
+               px-6 md:px-8 py-3 md:py-5 text-base md:text-lg rounded-xl 
+               backdrop-blur-sm transition-all duration-300 transform hover:scale-105 bg-white/5"
                 >
-                  <MessageCircle
-                    className={`${
-                      viewport === "mobile" ? "w-4 h-4 mr-2" : "w-5 h-5 mr-2"
-                    }`}
-                  />
+                  <MessageCircle className="w-4 h-4 md:w-5 md:h-5 mr-2" />
                   See How It Works
                 </Button>
               </div>

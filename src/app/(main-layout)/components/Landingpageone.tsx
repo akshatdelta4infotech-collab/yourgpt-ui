@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Star, Shield, Clock, ChevronRight } from "lucide-react";
-import PreviewCodeHeader from "./PreviewCodeHeader";
 import CodeView from "./CodeView";
 
 // Props type
@@ -473,17 +472,6 @@ export default function HeroSection() {
 
   return (
     <div className="w-full ">
-      {/* ✅ Conditionally hide header */}
-      {!hideHeader && (
-        <PreviewCodeHeader
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          previewComponent="landing-one"
-          hideTopBorder={false}
-          onViewportChange={handleViewportChange}
-        />
-      )}
-
       <div
         className={`${getContainerWidth()} ${getContainerAlignment()} min-h-[60vh] overflow-y-auto`}
       >

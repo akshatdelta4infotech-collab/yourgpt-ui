@@ -50,7 +50,7 @@ export default function CodeView({ code, language = "tsx" }: CodeViewProps) {
   };
 
   return (
-    <div className="relative w-full bg-card text-card-foreground text-left min-h-[50vh] sm:min-h-[60vh] max-h-[200vh] border overflow-y-hidden border-red-700">
+    <div className="relative w-full bg-card text-card-foreground text-left border h-full overflow-hidden">
       {/* Copy Button */}
       <button
         onClick={handleCopy}
@@ -83,12 +83,12 @@ export default function CodeView({ code, language = "tsx" }: CodeViewProps) {
         className="
     code-view-container
     text-xs sm:text-sm
-    h-auto
-   
-    max-h-[100vh] 
+       
+     w-full
+     h-full
     overflow-x-auto
     overflow-y-auto
-    px-2 sm:px-4 pb-6 sm:pb-8 pt-4 sm:pt-6
+    px-0 sm:px-4 pb-6 sm:pb-8 pt-4 sm:pt-6
     [&_pre]:h-full
     [&_pre]:overflow-visible
     [&_pre]:bg-transparent

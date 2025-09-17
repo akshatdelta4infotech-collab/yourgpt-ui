@@ -691,17 +691,6 @@ export default function ResponsiveLandingPage() {
 
   return (
     <div className="w-full font-inter">
-      {/* ✅ Conditionally hide header */}
-      {!hideHeader && (
-        <PreviewCodeHeader
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          previewComponent="landing-three"
-          hideTopBorder={false}
-          onViewportChange={handleViewportChange}
-        />
-      )}
-
       <div className="min-h-[60vh]">
         {hideHeader || activeTab === "preview" ? (
           <div

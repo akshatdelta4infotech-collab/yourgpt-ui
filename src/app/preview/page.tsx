@@ -1,10 +1,10 @@
 "use client";
-
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { previews } from "@/config/previews";
 
-export default function PreviewPage() {
+// Separate the component that uses useSearchParams
+function PreviewContent() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const clean = searchParams.get("clean") === "true";
@@ -21,5 +21,21 @@ export default function PreviewPage() {
 
   return (
     <div className="w-full h-full">{preview.render({ hideHeader: clean })}</div>
+  );
+}
+
+// Loading fallback component
+function PreviewLoading() {
+  return (
+    <div className="p-8 text-center text-gray-500">Loading preview...</div>
+  );
+}
+
+// Main page component with Suspense wrapper
+export default function PreviewPage() {
+  return (
+    <Suspense fallback={<PreviewLoading />}>
+      <PreviewContent />
+    </Suspense>
   );
 }
