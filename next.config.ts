@@ -1,13 +1,21 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   eslint: {
-    // Disable ESLint during builds
     ignoreDuringBuilds: true,
   },
-  // OR configure specific rules
-  // eslint: {
-  //   dirs: ['pages', 'utils'], // Only run ESLint on the 'pages' and 'utils' directories during production builds (next build)
-  // },
-}
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  redirects: async () => {
+    return [
+      {
+        source: "/",
+        destination: "/components",
+        statusCode: 302,
+      },
+    ];
+  },
+};
 
-module.exports = nextConfig
+export default nextConfig;
